@@ -4,18 +4,14 @@ Custom Exceptions
 This module defines the Exceptions that should be raised for each Exception.
 """
 
-class JWTVerificationError(Exception):
-    """Base class for JWT verification errors."""
+class FileError(Exception):
+    """Base class for File loader errors."""
     pass
 
-class JWTExpiredError(JWTVerificationError):
-    """Raised when the JWT has expired."""
+class FileLoadError(FileError):
+    """Raised when the File is unable to load."""
     pass
 
-class JWTInvalidError(JWTVerificationError):
-    """Raised when the JWT is invalid or malformed."""
-    pass
-
-class JWTCreationError(JWTVerificationError):
-    """Raised when the JWT is unable to be created."""
+class FileEmptyError(FileError):
+    """Raised when the File is Empty."""
     pass

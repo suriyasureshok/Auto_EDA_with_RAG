@@ -17,6 +17,7 @@ class DocType(str, Enum):
     CSV = "csv"
     JSON = "json"
     XLSX = "xlsx"
+    PARQUET = "parquet"
 
 class ProcessStatus(str, Enum):
     """Enum for Process Status"""
@@ -63,15 +64,14 @@ class AuthResponse(BaseModel):
     user_id: UUID
     access_token: str
 
-class DataSetMetaData(BaseModel):
-    """Base model for Dataset"""
-    data_id: UUID
-    user_id: UUID
-    uploaded_time: datetime
-    file_path: str
+class DatasetMetadata(BaseModel):
+    """Base Model for Dataset Metadata"""
+    filename: str
     file_type: DocType
-    num_rows: Optional[int] = None
-    num_cols: Optional[int] = None
+    upload_time: datetime
+    num_rows: int
+    num_columns: int
+    column_names: list[str]
 
 class ColumnSchema(BaseModel):
     """Base model for Column Schema"""

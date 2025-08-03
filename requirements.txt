@@ -8,3 +8,5 @@ python-jose
 fastapi
 python-dotenv
 pyrebase4
+streamlit
+streamlit-javascript

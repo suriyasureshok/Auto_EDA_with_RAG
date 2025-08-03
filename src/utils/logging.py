@@ -6,7 +6,7 @@ This module provides a custom logging.
 import logging
 import os
 
-def get_logger(name: str, log_file: str = "logs.csv") -> logging.Logger:
+def get_logger(name: str, log_file: str = "logs\logs.csv") -> logging.Logger:
     """
     Configures and returns a logger instance that writes to a CSV file.
 
