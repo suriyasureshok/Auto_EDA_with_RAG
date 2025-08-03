@@ -1,0 +1,113 @@
+{
+  "EDA": {
+    "Step 1: Understanding the Dataset": {
+      "1.1 What is a Dataset?": "A dataset is like a table or spreadsheet. It has rows (examples or records) and columns (features or attributes).",
+      "1.2 What is a Feature?": "A feature is a single column in the dataset. For example, 'age', 'income', 'city'.",
+      "1.3 What is a Sample?": "Each row is one sample or data point — it tells us everything about one instance."
+    },
+    "Step 2: First Glance Checks": {
+      "2.1 View Top Rows (Head)": {
+        "What it means": "Shows first 5 rows to get a feel for the data.",
+        "Python Code": "df.head()",
+        "Why do this": "To see column names, example values, and spot obvious issues."
+      },
+      "2.2 View Bottom Rows (Tail)": {
+        "What it means": "Shows the last 5 rows.",
+        "Python Code": "df.tail()",
+        "Why do this": "Useful for checking if there's strange data at the bottom."
+      },
+      "2.3 Check Shape (Size)": {
+        "What it means": "Tells how many rows and columns there are.",
+        "Python Code": "df.shape",
+        "Example": "Returns (1000, 15) => 1000 rows, 15 columns.",
+        "Why important": "Tells us dataset scale. Small vs large datasets are handled differently."
+      }
+    },
+    "Step 3: Data Types & Basic Info": {
+      "3.1 Use info()": {
+        "What it means": "Gives column names, data types, and number of missing values.",
+        "Python Code": "df.info()",
+        "Why important": "Helps spot strings in numeric columns or missing values."
+      },
+      "3.2 Describe()": {
+        "What it does": "Gives statistical summary of numeric columns.",
+        "Python Code": "df.describe()",
+        "Details": {
+          "count": "How many non-null values.",
+          "mean": "Average value.",
+          "std": "Standard deviation (spread).",
+          "min/max": "Smallest and largest value.",
+          "25%/50%/75%": "Quartiles — cuts the data into parts."
+        }
+      }
+    },
+    "Step 4: Missing Values": {
+      "4.1 How to Check?": {
+        "Python Code": "df.isnull().sum()",
+        "What it shows": "How many missing values each column has."
+      },
+      "4.2 Why Handle Missing Values?": {
+        "Explanation": "ML models can't work with missing data. It breaks calculations or gives wrong answers."
+      },
+      "4.3 What to Do with Missing Values?": {
+        "Option 1": "Drop rows: df.dropna() (Only when few rows missing).",
+        "Option 2": "Fill with mean/median/mode: df.fillna(df.mean())",
+        "Option 3": "Custom logic: Fill with constant or interpolate."
+      }
+    },
+    "Step 5: Duplicate Rows": {
+      "5.1 How to Check?": {
+        "Python Code": "df.duplicated().sum()",
+        "Why check": "Duplicates may mislead models — they count one event twice."
+      },
+      "5.2 How to Remove?": {
+        "Python Code": "df.drop_duplicates()"
+      }
+    },
+    "Step 6: Unique Values": {
+      "6.1 What it tells": "How many distinct categories a column has.",
+      "Python Code": "df['column'].nunique()",
+      "Example": "City column has 5 unique values: Chennai, Delhi, Mumbai, Pune, Bangalore."
+    },
+    "Step 7: Value Counts": {
+      "7.1 Use for Categorical Columns": "Shows how often each category occurs.",
+      "Python Code": "df['gender'].value_counts()",
+      "Use Case": "Check for imbalance — e.g., more males than females."
+    },
+    "Step 8: Data Distributions": {
+      "8.1 What is Distribution?": "How values are spread out in a column.",
+      "8.2 Use Histogram": {
+        "Python Code": "df['age'].hist()",
+        "Use": "Shows how many people fall in each age group."
+      },
+      "8.3 Use KDE Plot": {
+        "Python Code": "sns.kdeplot(df['age'])",
+        "Use": "Smooth curve for distribution."
+      },
+      "8.4 Use Boxplot": {
+        "Python Code": "sns.boxplot(df['salary'])",
+        "Use": "Shows min, Q1, median, Q3, max, and outliers."
+      }
+    },
+    "Step 9: Correlation & Relationships": {
+      "9.1 What is Correlation?": "A number between -1 and 1 that shows how two numeric features move together.",
+      "9.2 How to Compute?": {
+        "Python Code": "df.corr()",
+        "Heatmap": "sns.heatmap(df.corr(), annot=True)"
+      },
+      "9.3 Use Cases": {
+        "Find multicollinearity": "Too many related features confuse models.",
+        "Detect interesting patterns": "E.g., higher education linked to higher income."
+      }
+    },
+    "Step 10: Grouping and Aggregations": {
+      "10.1 Use groupby()": {
+        "Example": "df.groupby('gender')['income'].mean()",
+        "Explanation": "Find average income for each gender."
+      },
+      "10.2 Use pivot_table": {
+        "Use": "More complex aggregations with multiple levels."
+      }
+    }
+  }
+}
