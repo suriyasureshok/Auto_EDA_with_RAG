@@ -5,7 +5,7 @@ This module loads the Excel files and parses them into a usable format.
 """
 
 #Import the abstract class
-from base_parser import BaseParser
+from src.parsers.base_parser import BaseParser
 
 #Import required libraries
 import pandas as pd
@@ -46,7 +46,7 @@ class XLSXParser(BaseParser):
                 raise FileEmptyError("The Excel file is empty")
 
             metadata = DatasetMetaData(
-                name = file.filename,
+                filename = file.filename,
                 file_type = DocType.XLSX,
                 upload_time = datetime.now(timezone.utc),
                 num_rows = df.shape[0],

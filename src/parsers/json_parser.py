@@ -5,7 +5,7 @@ This module loads the JSON files and parses them into a usable format.
 """
 
 #Import the abstract class
-from base_parser import BaseParser
+from src.parsers.base_parser import BaseParser
 
 #Import required libraries
 import pandas as pd
@@ -51,7 +51,7 @@ class JSONParser(BaseParser):
                 raise FileEmptyError("JSON file has no columns.")
 
             metadata = DatasetMetaData(
-                name = file.filename,
+                filename = file.filename,
                 file_type = DocType.JSON,
                 upload_time = datetime.now(timezone.utc),
                 num_rows = df.shape[0],

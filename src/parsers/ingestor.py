@@ -9,10 +9,10 @@ from fastapi import UploadFile
 
 # Import Parsers and utils
 from src.utils.models import DocType
-from parsers.csv_parser import CSVParser
-from parsers.excel_parser import XLSXParser
-from parsers.json_parser import JSONParser
-from parsers.parquet_parser import ParquetParser
+from src.parsers.csv_parser import CSVParser
+from src.parsers.excel_parser import XLSXParser
+from src.parsers.json_parser import JSONParser
+from src.parsers.parquet_parser import ParquetParser
 
 class IngestionFactory:
     """This class is the factory for all ingestion parsers."""

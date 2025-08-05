@@ -5,7 +5,7 @@ This module loads the CSV files and parses them into a usable format.
 """
 
 #Import the abstract class
-from base_parser import BaseParser
+from src.parsers.base_parser import BaseParser
 
 #Import required libraries
 import pandas as pd
@@ -46,9 +46,9 @@ class CSVParser(BaseParser):
                 raise FileEmptyError("The CSV file is empty")
 
             metadata = DatasetMetaData(
-                name = file.filename,
+                filename = file.filename,
                 file_type = DocType.CSV,
-                upload_time = datetime.now(timezone.utc()),
+                upload_time = datetime.now(timezone.utc),
                 num_rows = df.shape[0],
                 num_columns = df.shape[1],
                 column_names = list(df.columns),

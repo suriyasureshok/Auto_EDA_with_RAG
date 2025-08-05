@@ -26,6 +26,19 @@ class ProcessStatus(str, Enum):
     COMPLETED = "completed"
     FAILED = "failed"
 
+class ColType(str, Enum):
+    """Enum for standardized column data types."""
+    CATEGORICAL = 'categorical'
+    NUMERIC = 'numeric'
+    DATE = 'date'
+    TIME = 'time'
+    DATETIME = 'datetime'
+    BOOLEAN = 'boolean'
+    TEXT = 'text'
+    ID = 'id'
+    TARGET = 'target'
+    UNKNOWN = 'unknown'
+
 class TaskType(str, Enum):
     """Enum for Task Type"""
     UPLOAD = "upload"
@@ -47,6 +60,12 @@ class QualityMetric(str, Enum):
     CORRELATION = "correlation"
     IMBALANCED_CLASSES = "imbalanced_classes"
 
+class VisualizationLevel(str, Enum):
+    """Enum for Visualization levels"""
+    BASIC = "basic"
+    DIAGNOSTIC = "diagnostic"
+    ADVANCED = "advanced"
+
 #Data Models
 class RegisterUser(BaseModel):
     """Base model for New User Registration"""
@@ -64,7 +83,7 @@ class AuthResponse(BaseModel):
     user_id: UUID
     access_token: str
 
-class DatasetMetadata(BaseModel):
+class DatasetMetaData(BaseModel):
     """Base Model for Dataset Metadata"""
     filename: str
     file_type: DocType
@@ -76,10 +95,14 @@ class DatasetMetadata(BaseModel):
 class ColumnSchema(BaseModel):
     """Base model for Column Schema"""
     name: str
-    dtype: str
-    num_missing: Optional[int] = 0
-    num_unique: Optional[int] = None
-    inferred_type: Optional[str] = None
+    type: ColType
+    missing_pct: float
+    unique: Optional[int]
+    mean: Optional[float]
+    std: Optional[float]
+    min: Optional[float]
+    max: Optional[float]
+    mode: Optional[str]
 
 class QualityCheck(BaseModel):
     """Base model for Quality Check"""
