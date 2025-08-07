@@ -1,5 +1,3 @@
-{
-    "load_extensions": {
-        "pydeck/extension": true
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8b94f463fd101670b294003eadc7da29079012e04b40460631a175e42ffcd3be
+size 68
