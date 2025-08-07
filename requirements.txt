@@ -12,3 +12,4 @@ python-dotenv
 pyrebase4
 streamlit
 streamlit-javascript
+category-encoders

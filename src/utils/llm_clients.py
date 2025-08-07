@@ -9,11 +9,17 @@ Example:
     output = client.generate("Summarize this dataset...", stream=False)
 """
 
+#Import libraries
 import requests
 from typing import Optional
+import os
+from dotenv import load_dotenv
+
+#Import util libraries
 from src.utils.logging import get_logger
 from src.utils.exceptions import LLMError
 
+load_dotenv()
 logger = get_logger(__name__)
 
 class MistralClient:
@@ -110,3 +116,34 @@ class MistralClient:
         except Exception as e:
             logger.error(f"Chat request failed: {e}")
             raise LLMError(f"LLM chat request failed: {e}")
+
+class GeminiClient:
+    def __init__(self, model="gemini-pro", api_key=None):
+        self.model = model
+        self.api_key = api_key or os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
+            raise ValueError("GEMINI_API_KEY not set")
+        self.base_url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
+        logger.info(f"GeminiClient initialized with model '{self.model}'")
+
+    def generate(self, prompt: str, temperature: float = 0.7, max_tokens: int = 512) -> str:
+        try:
+            payload = {
+                "contents": [
+                    {
+                        "parts": [{"text": prompt}]
+                    }
+                ],
+                "generationConfig": {
+                    "temperature": temperature,
+                    "maxOutputTokens": max_tokens
+                }
+            }
+            params = {"key": self.api_key}
+            resp = requests.post(self.base_url, params=params, json=payload, timeout=60)
+            resp.raise_for_status()
+            data = resp.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:
+            logger.error(f"Gemini generation error: {e}")
+            raise LLMError(f"Gemini generation failed: {e}")

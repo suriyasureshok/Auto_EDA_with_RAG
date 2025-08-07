@@ -43,7 +43,6 @@ class EDAEngine:
         else:
             logger.debug(f"Generated summary text: {summary[:100]}...")
 
-
         logger.info("Determining visualization rules...")
         rules = visualization_rules(df, column_stats, target_column=target_column, task_type=task_type)
         logger.debug(f"Visualization rules generated for {len(rules)} features/feature pairs")

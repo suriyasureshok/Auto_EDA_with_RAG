@@ -53,3 +53,6 @@ class LLMError(Exception):
 
 class FileNotFoundError(Exception):
     pass
+
+class PreprocessingError(Exception):
+    pass

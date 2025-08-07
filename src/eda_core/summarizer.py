@@ -15,7 +15,7 @@ import pandas as pd
 from src.utils.logging import get_logger
 from src.utils.exceptions import SummarizationError, LLMError
 from src.utils.models import ColumnSchema
-from src.utils.llm_clients import MistralClient
+from src.utils.llm_clients import GeminiClient
 
 logger = get_logger(__name__)
 
@@ -85,7 +85,7 @@ def generate_summary_llm(df: pd.DataFrame, column_stats: Dict[str, ColumnSchema]
     """
     try:
         logger.info("Starting LLM-based dataset summarization...")
-        client = MistralClient(model="mistral")
+        client = GeminiClient(model="gemini-1.5-flash")
         prompt = f"""
         You are a data analysis expert. 
         Dataset statistics: {column_stats}

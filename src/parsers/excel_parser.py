@@ -23,39 +23,35 @@ logger = get_logger(__name__)
 
 class XLSXParser(BaseParser):
     """XLSX Parser class."""
-    def load(self, file: UploadFile) -> Tuple[pd.DataFrame, DatasetMetaData]:
+    def load(self, file) -> Tuple[pd.DataFrame, DatasetMetaData]:
         """
-        This function overrides the load function from the base parser class.
-        It stores the metadata and parses the csv into a pandas DataFrame.
+        Load an Excel file into a DataFrame with metadata.
 
         Args:
-            file: The XLSX file to be loaded.
+            file: Uploaded file object (FastAPI UploadFile or Streamlit UploadedFile).
 
         Returns:
-            A tuple containing the parsed DataFrame and the metadata of the dataset.
-
-        Raises:
-            FileLoadError: If the file is unable to load.
+            Tuple of DataFrame and DatasetMetaData.
         """
         try:
-            content = file.file.read()
-            df = pd.read_excel(io.BytesIO(content))
+            # Read file content
+            content = file.file.read() if hasattr(file, "file") else file.read()
+            df = pd.read_excel(io.BytesIO(content), engine='openpyxl')
 
             if df.empty:
                 logger.warning('Excel File is Empty')
                 raise FileEmptyError("The Excel file is empty")
 
             metadata = DatasetMetaData(
-                filename = file.filename,
-                file_type = DocType.XLSX,
-                upload_time = datetime.now(timezone.utc),
-                num_rows = df.shape[0],
-                num_columns = df.shape[1],
-                column_names = list(df.columns),
+                filename=file.filename,
+                file_type=DocType.XLSX,
+                upload_time=datetime.now(timezone.utc),
+                num_rows=df.shape[0],
+                num_columns=df.shape[1],
+                column_names=list(df.columns),
             )
-            
             return df, metadata
-        
+
         except Exception as e:
             logger.error(f"Error loading Excel File: {e}")
             raise FileLoadError('Unable to load the Excel File') from e

@@ -30,7 +30,7 @@ class IngestionFactory:
         match file_type:
             case DocType.CSV:
                 return CSVParser()
-            case DocType.EXCEL:
+            case DocType.XLSX:
                 return XLSXParser()
             case DocType.JSON:
                 return JSONParser()
